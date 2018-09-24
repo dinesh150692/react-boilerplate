@@ -1,5 +1,5 @@
 import React from 'react';
-import './style.css';
+import './style.scss';
 const HelloWorld = ({ title }) => (
   <div>
     <div className="helloWorld">{title}</div>

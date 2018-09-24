@@ -8,7 +8,7 @@ const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-
+const PreloadWebpackPlugin = require('preload-webpack-plugin');
 // the clean options to use
 let cleanOptions = {
   root:     __dirname + '/' + '../',
@@ -65,6 +65,10 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: `${commonPaths.cssFolder}/[name].[contenthash:5].css`,
       chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
+    }),
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      include: 'allChunks' 
     }),
     //To extract css which is need for initial page load alone separately so 
     //that initial load is quicker
