@@ -66,6 +66,7 @@ module.exports = {
       filename: `${commonPaths.cssFolder}/[name].[contenthash:5].css`,
       chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
     }),
+    //To add preload attribute to all the chunks
     new PreloadWebpackPlugin({
       rel: 'preload',
       include: 'allChunks' 
