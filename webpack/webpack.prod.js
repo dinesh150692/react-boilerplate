@@ -10,15 +10,17 @@ const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CompressionPlugin =  require('compression-webpack-plugin');
+
 // the clean options to use
 let cleanOptions = {
   root:     __dirname + '/' + '../',
   verbose:  true,
+  exclude:  ['manifest.json', 'favicon.ico', 'logo.svg'],
   dry:      false
 };
 
 //Public url will be prepended to the chunk files
-var publicUrl = 'https://www.google.com/';
+var publicUrl = '/';
 
 module.exports = {
   mode: 'production',
@@ -51,6 +53,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: commonPaths.templatePath,
       inject: true,
+      manifest: __dirname + '/src/manifest.json',
       serviceWorker: '/service-worker.js',
       minify: {
         removeComments: true,

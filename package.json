@@ -17,6 +17,7 @@
     "babel-core": "7.0.0-bridge.0"
   },
   "dependencies": {
+    "compression": "^1.7.3",
     "express": "^4.16.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
