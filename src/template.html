@@ -12,33 +12,26 @@
 <noscript>
     You need to enable JavaScript to run this app.
 </noscript>
-
 <div id="app"></div>
 <script type="text/javascript"> 
-window.addEventListener('load', function() {
-      var outputElement = document.getElementById('output');
-      if('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js');
+  window.addEventListener('load', function() {
+    var outputElement = document.getElementById('output');
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js');
+    }
+    window.addEventListener('beforeinstallprompt', function(e) {
+      outputElement.textContent = 'beforeinstallprompt Event fired';
+      console.log('beforeinstallprompt');
+      e.userChoice.then(function(choiceResult) {    
+        console.log(choiceResult.outcome);
+        if(choiceResult.outcome == 'dismissed') {
+          console.log('User cancelled homescreen install');
+        }else {
+          console.log('User added to homescreen');
         }
-      window.addEventListener('beforeinstallprompt', function(e) {
-        outputElement.textContent = 'beforeinstallprompt Event fired';
-        console.log('beforeinstallprompt');
-        // e.userChoice will return a Promise. For more details read: http://www.html5rocks.com/en/tutorials/es6/promises/
-        e.userChoice.then(function(choiceResult) {
-          
-          console.log(choiceResult.outcome);
-          
-          if(choiceResult.outcome == 'dismissed') {
-            console.log('User cancelled homescreen install');
-          }
-          else {
-            console.log('User added to homescreen');
-          }
-        });
-        
       });
-      
     });
+  });
 </script>
 <pre id="output"></pre>
 </body>
