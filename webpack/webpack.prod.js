@@ -9,20 +9,24 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
+const CompressionPlugin =  require('compression-webpack-plugin');
 // the clean options to use
 let cleanOptions = {
   root:     __dirname + '/' + '../',
   verbose:  true,
   dry:      false
-}
+};
 
-const publicUrl = '/';
+//Public url will be prepended to the chunk files
+var publicUrl = 'https://www.google.com/';
+
 module.exports = {
   mode: 'production',
   entry: commonPaths.entryPath,
   output: {
     filename: `${commonPaths.jsFolder}/[name].[contenthash:5].js`,
     path: commonPaths.outputPath,
+    publicPath: publicUrl,
     chunkFilename: '[name].[contenthash:5].js',
   },
   module: {
@@ -96,7 +100,11 @@ module.exports = {
         navigateFallback:  'index.html',
         staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
       }
-    )
+    ),
+    //To add compression to your build
+    // new CompressionPlugin({
+    //   cache: true
+    // })
   ],
   optimization: {
     minimizer: [
