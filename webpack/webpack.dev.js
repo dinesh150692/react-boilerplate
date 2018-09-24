@@ -1,6 +1,7 @@
 
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const commonPaths = require('./paths');
 
 module.exports = {
@@ -12,29 +13,43 @@ module.exports = {
     chunkFilename: '[name].[contenthash:5].js',
   },
   module: {
+    // rules: [
+    //   {
+    //     test: /\.(css|scss)$/,
+    //     use: [
+    //       'style-loader',
+    //       {
+    //         loader: 'css-loader',
+    //         options: {
+    //           sourceMap: true,
+    //           modules: true,
+    //           camelCase: true
+    //         },
+    //       },
+    //       'sass-loader',
+    //     ],
+    //   },
+    // ],
     rules: [
       {
         test: /\.(css|scss)$/,
         use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true,
-              modules: true,
-              camelCase: true,
-              localIdentName: '[local]___[hash:base64:5]',
-            },
-          },
-          'sass-loader',
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'sass-loader'
         ],
       },
     ],
   },
   plugins: [
     new webpack.ProgressPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       template: commonPaths.templatePath,
     }),
+    new MiniCssExtractPlugin({
+      filename: `${commonPaths.cssFolder}/[name].[contenthash:5].css`,
+      chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
+    })
   ],
 };

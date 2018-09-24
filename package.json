@@ -4,8 +4,9 @@
   "description": "Sample PWA",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development webpack-serve --open",
-    "start_server": "NODE_ENV=preprod node server.js",
+    "start": "webpack-dev-server --port 3000",
+    "local_server": "NODE_ENV=development node server.js",
+    "prod_server": "NODE_ENV=production node server.js",
     "build": "cross-env NODE_ENV=production webpack",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "jest --watchAll --coverage"
@@ -64,7 +65,7 @@
     "uglifyjs-webpack-plugin": "^2.0.1",
     "webpack": "4.19.1",
     "webpack-cli": "3.1.0",
-    "webpack-merge": "4.1.4",
-    "webpack-serve": "2.0.2"
+    "webpack-dev-server": "^3.1.8",
+    "webpack-merge": "4.1.4"
   }
 }
