@@ -38,9 +38,12 @@ module.exports = {
     ],
   },
   plugins: [
+    //To display the progress of the webpack build
     new webpack.ProgressPlugin(),
     new webpack.HashedModuleIdsPlugin(),
+    //To clear the destination directory before webpack build
     new CleanWebpackPlugin(['build'], cleanOptions),
+    //To create html
     new HtmlWebpackPlugin({
       template: commonPaths.templatePath,
       inject: true,
@@ -58,10 +61,13 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    //To extract css in the js files into separate/single file
     new MiniCssExtractPlugin({
       filename: `${commonPaths.cssFolder}/[name].[contenthash:5].css`,
       chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
     }),
+    //To extract css which is need for initial page load alone separately so 
+    //that initial load is quicker
     new HtmlCriticalWebpackPlugin({
         base: path.resolve(__dirname, '../build/'),
         src: 'index.html',
@@ -75,6 +81,7 @@ module.exports = {
           blockJSRequests: false,
         }
     }),
+    //To create a service worker file
     new SWPrecacheWebpackPlugin(
       {
         cacheId: 'demoe',
@@ -88,11 +95,13 @@ module.exports = {
   ],
   optimization: {
     minimizer: [
+      //To minimize your generated js file
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
         sourceMap: true // set to true if you want JS source maps
       }),
+      //To optimize css in your code
       new OptimizeCSSAssetsPlugin({})
     ],
     runtimeChunk: 'single',
@@ -101,6 +110,8 @@ module.exports = {
       maxInitialRequests: Infinity,
       minSize: 0,
       cacheGroups: {
+        //To create npm module into separate file so that it can be cached unless 
+        //module is changed
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name(module) {
