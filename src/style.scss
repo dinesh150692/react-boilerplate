@@ -8,6 +8,9 @@ h3{
 
 body{margin:0!important}
 
+#app{
+    margin-top: 100%;
+}
 //Remove this styling it is for sample purpose for checking the critical css
 .loader-parent{top:40%;position:absolute;width:100%;text-align:center}
 .pp-logo-loader{color:#673ab7;font-size:10px;text-indent:-99999em;margin:0 auto;position:relative;width:72px;height:72px;border-radius:50%;box-shadow:inset 0 0 0 3px;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}.pp-logo-loader:after,
