@@ -16,18 +16,14 @@ const App = () => (
         <li>
           <Link to="/topics">Topics</Link>
         </li>
-        <li>
-          <Link to="/hello">HelloWorld</Link>
-        </li>
       </ul>
       <hr />
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/about" component={About} />
         <Route path="/topics" component={Topics} />
-        
       </Switch>
-      </div>
+    </div>
   </Router>
 );
 
