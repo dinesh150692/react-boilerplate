@@ -7,7 +7,7 @@
     "start": "webpack-dev-server --port 3000",
     "local_server": "NODE_ENV=development node server.js",
     "prod_server": "NODE_ENV=production node server.js",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "sh ./scripts/prod.sh",
     "format": "prettier --write 'packages/**/*.js'",
     "test": "jest --watchAll --coverage"
   },
@@ -19,9 +19,12 @@
   "dependencies": {
     "compression": "^1.7.3",
     "express": "^4.16.3",
+    "preact": "^8.3.1",
+    "preact-compat": "^3.18.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "react-hot-loader": "^4.3.11"
+    "react-hot-loader": "^4.3.11",
+    "react-router-dom": "^4.3.1"
   },
   "devDependencies": {
     "@babel/core": "7.1.0",

@@ -76,8 +76,19 @@ module.exports = {
     //To add preload attribute to all the chunks
     new PreloadWebpackPlugin({
       rel: 'preload',
-      include: 'allChunks' 
+      include: 'initial'
     }),
+    //To create a service worker file
+    new SWPrecacheWebpackPlugin(
+      {
+        cacheId: 'demoe',
+        dontCacheBustUrlsMatching: /\.\w{8}\./,
+        filename: 'service-worker.js',
+        minify: true,
+        navigateFallback:  'index.html',
+        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+      }
+    ),
     //To extract css which is need for initial page load alone separately so 
     //that initial load is quicker
     new HtmlCriticalWebpackPlugin({
@@ -93,20 +104,12 @@ module.exports = {
           blockJSRequests: false,
         }
     }),
-    //To create a service worker file
-    new SWPrecacheWebpackPlugin(
-      {
-        cacheId: 'demoe',
-        dontCacheBustUrlsMatching: /\.\w{8}\./,
-        filename: 'service-worker.js',
-        minify: true,
-        navigateFallback:  'index.html',
-        staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
-      }
-    ),
     //To add compression to your build
     // new CompressionPlugin({
-    //   cache: true
+    //   algorithm: "gzip",
+    //   test: /\.js$|\.css$|\.html$/,
+    //   threshold: 10240,
+    //   minRatio: 0.8
     // })
   ],
   optimization: {
@@ -133,11 +136,18 @@ module.exports = {
           name(module) {
             // get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
-            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
-
-            // npm package names are URL-safe, but some servers don't like @ symbols
-            return `npm.${packageName.replace('@', '')}`;
+            if(module.context.match(/[\\/]node_modules[\\/](react|react-dom|preact|preact-compact)([\\/]|$)/)){
+              return `npm.preactBundle`;
+            }else if(module.context.match(/[\\/]node_modules[\\/](react-router|react-router-dom|history|invariant)([\\/]|$)/)){
+              return `npm.reactRouterBundle`;
+            }else{
+              // const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              // return `npm.${packageName.replace('@', '')}`;
+              return 'npm.otherBundle';
+            }
           },
+          chunks: "initial"
         },
       },
     },

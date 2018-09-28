@@ -1,1 +1,1 @@
-This is React boilerplate with React 16.5 and webpack 4 with various plugins to optimize you build with long term caching and faster first paint.
+This is React/Preact boilerplate with webpack 4 with various plugins to optimize you build with long term caching and faster first paint.

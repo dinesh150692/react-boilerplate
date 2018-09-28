@@ -22,6 +22,13 @@ app.get('/', (req, res) => {
 	res.sendFile(path.join(__dirname, dmrcBasePath, indexPath));
 });
 
+// To serve gzip file
+// app.get('*.js', function (req, res, next) {
+// 	req.url = req.url + '.gz';
+// 	res.set('Content-Encoding', 'gzip');
+// 	next();
+// });
+
 // Catch all other routes and serve 404 (Page not found) Screen
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, dmrcBasePath, indexPath));

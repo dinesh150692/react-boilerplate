@@ -43,4 +43,11 @@ module.exports = {
     dgram: 'empty',
     child_process: 'empty'
   },
+  //enable this comment for moving from react to preact
+  // resolve: {
+  //   alias: {
+  //     "react": "preact-compat",
+  //     'react-dom': "preact-compat"
+  //   }
+  // }
 };
