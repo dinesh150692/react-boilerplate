@@ -1,5 +1,5 @@
 h2{
-    color: orangered;
+    color: red;
 }
 
 h3{
@@ -61,4 +61,54 @@ a#reload {
         opacity: 1;
         visibility: visible;
     }
+}
+
+.btn {
+    border: none;
+    display: inline-block;
+    text-transform: uppercase;
+    vertical-align: middle;
+    -webkit-tap-highlight-color: transparent;
+    outline: 0;
+    text-decoration: none;
+    color: #fff;
+    background-color: #cc3030;
+    letter-spacing: .5px;
+    -webkit-transition: .2s ease-out;
+    transition: .2s ease-out;
+    cursor: pointer;
+    padding: 10px 12px;
+    font-size: 16px;
+    line-height: 24px;
+    height: 46px;
+    min-width: 160px;
+    text-align: center;
+    border-radius: 0;
+    text-transform: uppercase;
+    margin: 10px 0;
+    transition: all .2s ease-in-out;
+}
+
+.footer-prompt {
+    display: flex;
+    width: 100vw;
+    line-height: 2em;
+    background-color: #fff;
+    color: #333;
+    text-align: center;
+    text-decoration: none;
+    padding: 5% 3%;
+    min-height: 10%;
+    position: fixed;
+    bottom: 0;
+    justify-content: flex-end;
+    flex-direction: column;
+    flex-grow: 1;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    z-index: 9999;
+}
+
+.footer-prompt-hide{
+    display: none;
 }

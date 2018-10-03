@@ -11,7 +11,7 @@
       <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
       <meta name="apple-mobile-web-app-capable" content="yes">
       <meta name="apple-mobile-web-app-status-bar-style" content="default">
-      <meta name="apple-mobile-web-app-title" content="PWA Splash">
+      <meta name="apple-mobile-web-app-title" content="Preact/React Webpack boilerplate">
       <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
       <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
       <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
@@ -34,33 +34,17 @@
         var outputElement = document.getElementById('output');
         var newWorker;
         var refreshing;
-        
-        //For showing the a2hs 
-        window.addEventListener('beforeinstallprompt', function(e) {
-          outputElement.textContent = 'beforeinstallprompt Event fired';
+        var deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', function(event) {
           console.log('beforeinstallprompt');
-          e.userChoice.then(function(choiceResult) {    
-            console.log(choiceResult.outcome);
-            if(choiceResult.outcome == 'dismissed') {
-              console.log('User cancelled homescreen install');
-            }else {
-              console.log('User added to homescreen');
-            }
-          });
+          // Prevent Chrome 67 and earlier from automatically showing the prompt
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+          deferredPrompt = e;
+          showAddToHomeScreen();
         });
-          
-        function showUpdateBar() {
-          console.log('In showUpdateBar');
-          var snackbar = document.getElementById('snackbar');
-          snackbar.classList.add('show');
-        }
-
-        // The click event on the pop up notification
-        document.getElementById('reload').addEventListener('click', function(){
-          newWorker.postMessage({ action: 'skipWaiting' });
-          window.location.reload();
-        });
-
+        
         if ('serviceWorker' in navigator) {
           navigator.serviceWorker.register('/service-worker.js').then(reg => {
             reg.addEventListener('updatefound', () => {
@@ -87,8 +71,48 @@
             // refreshing = true;
           });
         }
+
+        function showUpdateBar() {
+          var snackbar = document.getElementById('snackbar');
+          snackbar.classList.add('show');
+        }
+
+         // The click event on the pop up notification
+        document.getElementById('reload').addEventListener('click', function(){
+          newWorker.postMessage({ action: 'skipWaiting' });
+          window.location.reload();
+        });
+
+        function showAddToHomeScreen() {
+          var a2hs = document.getElementById("ad2hs");
+          var a2hsBtn = document.getElementById("ad2hsBtn");
+          a2hs.classList.add('footer-prompt');
+          a2hsBtn.addEventListener("click", addToHomeScreen);
+        }
+
+        function addToHomeScreen() {  
+            a2hs = document.getElementById("ad2hs");
+            a2hs.classList.add('footer-prompt-hide');
+            a2hs.classList.remove('footer-prompt');
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice
+              .then(function(choiceResult){
+
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+            } else {
+              console.log('User dismissed the A2HS prompt');
+            }
+
+            deferredPrompt = null;
+
+          });
+        }
       });
     </script>
-    <pre id="output"></pre>
+    <div id="ad2hs" class="footer-prompt-hide">
+      <h3>Add to Your Homescreen!</h3>
+      <div class="btn" id="ad2hsBtn">Add</div>
+    </div>
   </body>
 </html>
