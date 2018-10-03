@@ -136,7 +136,7 @@ module.exports = {
           name(module) {
             // get the name. E.g. node_modules/packageName/not/this/part.js
             // or node_modules/packageName
-            if(module.context.match(/[\\/]node_modules[\\/](react|react-dom|preact|preact-compact)([\\/]|$)/)){
+            if(module.context.match(/[\\/]node_modules[\\/](react-dom|react|preact-compat|preact)([\\/]|$)/)){
               return `npm.preactBundle`;
             }else if(module.context.match(/[\\/]node_modules[\\/](react-router|react-router-dom|history|invariant)([\\/]|$)/)){
               return `npm.reactRouterBundle`;
