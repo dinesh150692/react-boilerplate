@@ -1,5 +1,5 @@
 h2{
-    color: red;
+    color: orangered;
 }
 
 h3{
@@ -11,15 +11,54 @@ body{margin:0!important}
 #app{
     margin-top: 100%;
 }
-//Remove this styling it is for sample purpose for checking the critical css
-.loader-parent{top:40%;position:absolute;width:100%;text-align:center}
-.pp-logo-loader{color:#673ab7;font-size:10px;text-indent:-99999em;margin:0 auto;position:relative;width:72px;height:72px;border-radius:50%;box-shadow:inset 0 0 0 3px;-webkit-transform:translateZ(0);-ms-transform:translateZ(0);transform:translateZ(0)}.pp-logo-loader:after,
-.pp-logo-loader:before{position:absolute;content:'';width:45px;height:80px;background:#fff;top:-5px}.pp-logo-loader:before{border-radius:80px 0 0 80px;left:-5px;-webkit-transform-origin:40px 39px;transform-origin:40px 39px;-webkit-animation:uptodown 1.4s infinite ease;animation:uptodown 1.4s infinite ease}
-.pp-logo-loader:after{border-radius:0 80px 80px 0;left:40px;-webkit-transform-origin:0 39px;transform-origin:0 39px;
--webkit-animation:downtoup 1.4s infinite ease 1s;animation:downtoup 1.4s infinite ease 1s}
-@-webkit-keyframes uptodown{0%{-webkit-transform:rotate(-360deg);transform:rotate(-360deg)}100%{-webkit-transform:rotate(0);transform:rotate(0)}}
-@keyframes uptodown{0%{-webkit-transform:rotate(-360deg);transform:rotate(-360deg)}100%{-webkit-transform:rotate(0);transform:rotate(0)}}
-@-webkit-keyframes downtoup{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-@keyframes downtoup{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-.pp-logo-container{position:absolute;top:12px;width:100%;text-align:center}
-.pp-logo{height:48px}
+
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    right: 0%;
+    bottom: 30px;
+    font-size: 13px;
+}
+
+a#reload {
+    font-size: 14px;
+    font-weight: 500;
+    color: blue;
+}
+#snackbar.show {
+    -webkit-animation: fadein 5s;
+    animation: fadein 5s;
+}
+
+@-webkit-keyframes fadein {
+    0%, 100% {
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+        bottom: 30px;
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+@keyframes fadein {
+    0%, 100% {
+        bottom: 0;
+        opacity: 0;
+        visibility: hidden;
+    }
+    10%, 20%, 30%, 40%, 50%, 60%, 70%, 80%, 90% {
+        bottom: 30px;
+        opacity: 1;
+        visibility: visible;
+    }
+}

@@ -1,57 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="Description" content="Sample React Boilerplate">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#673ab7">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="apple-mobile-web-app-title" content="PWA Splash">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo.svg">
-    <meta name="msapplication-TileColor" content="#673ab7">
-    <title>Preact/React Webpack boilerplate</title>
-</head>
-<body>
-  <!-- Remove this div it is for sample purpose for checking the critical css -->
-  <div class='loader-parent'>
-      <div class='pp-logo-loader'></div><div class='pp-logo-container'><img class='pp-logo' src="https://imgstatic.phonepe.com/images/inappweb/120/120/pp-logo.png" alt="Phonepe " /></div>
-  </div>
-<noscript>
-    You need to enable JavaScript to run this app.
-</noscript>
-<div id="app"></div>
-<script type="text/javascript"> 
-  window.addEventListener('load', function() {
-    var outputElement = document.getElementById('output');
-    if('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js');
-    }
-    window.addEventListener('beforeinstallprompt', function(e) {
-      outputElement.textContent = 'beforeinstallprompt Event fired';
-      console.log('beforeinstallprompt');
-      e.userChoice.then(function(choiceResult) {    
-        console.log(choiceResult.outcome);
-        if(choiceResult.outcome == 'dismissed') {
-          console.log('User cancelled homescreen install');
-        }else {
-          console.log('User added to homescreen');
+  <head>
+      <meta charset="utf-8">
+      <meta name="Description" content="Sample React Boilerplate">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="theme-color" content="#673ab7">
+      <link rel="manifest" href="/manifest.json">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="default">
+      <meta name="apple-mobile-web-app-title" content="PWA Splash">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-icon" sizes="180x180" href="/logo.svg">
+      <meta name="msapplication-TileColor" content="#673ab7">
+      <title>Preact/React Webpack boilerplate</title>
+  </head>
+  <body>
+    <div id="snackbar">A new version is available - <a id="reload">REFRESH</a></div>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="app"></div>
+    <script type="text/javascript"> 
+      window.addEventListener('load', function() {
+        var outputElement = document.getElementById('output');
+        var newWorker;
+        var refreshing;
+        
+        //For showing the a2hs 
+        window.addEventListener('beforeinstallprompt', function(e) {
+          outputElement.textContent = 'beforeinstallprompt Event fired';
+          console.log('beforeinstallprompt');
+          e.userChoice.then(function(choiceResult) {    
+            console.log(choiceResult.outcome);
+            if(choiceResult.outcome == 'dismissed') {
+              console.log('User cancelled homescreen install');
+            }else {
+              console.log('User added to homescreen');
+            }
+          });
+        });
+          
+        function showUpdateBar() {
+          console.log('In showUpdateBar');
+          var snackbar = document.getElementById('snackbar');
+          snackbar.classList.add('show');
+        }
+
+        // The click event on the pop up notification
+        document.getElementById('reload').addEventListener('click', function(){
+          newWorker.postMessage({ action: 'skipWaiting' });
+          window.location.reload();
+        });
+
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+              // A wild service worker has appeared in reg.installing!
+              newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                // Has network.state changed?
+                switch (newWorker.state) {
+                  case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                      // new update available
+                      showUpdateBar();
+                    }
+                    // No update available
+                    break;
+                }
+              });
+            });
+          });
+          navigator.serviceWorker.addEventListener('controllerchange', function () {
+            // console.log('In controller change');
+            // if (refreshing) return;
+            // window.location.reload();
+            // refreshing = true;
+          });
         }
       });
-    });
-  });
-</script>
-<pre id="output"></pre>
-</body>
+    </script>
+    <pre id="output"></pre>
+  </body>
 </html>

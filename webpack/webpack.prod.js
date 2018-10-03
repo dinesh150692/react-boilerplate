@@ -11,6 +11,7 @@ const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CompressionPlugin =  require('compression-webpack-plugin');
 
+const BuildProperties = require('../build.properties.json');
 // the clean options to use
 let cleanOptions = {
   root:     __dirname + '/' + '../',
@@ -81,7 +82,7 @@ module.exports = {
     //To create a service worker file
     new SWPrecacheWebpackPlugin(
       {
-        cacheId: 'demoe',
+        cacheId: BuildProperties.version,
         dontCacheBustUrlsMatching: /\.\w{8}\./,
         filename: 'service-worker.js',
         minify: true,

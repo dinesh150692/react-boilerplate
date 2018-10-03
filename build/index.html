@@ -1,6 +1,63 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="Description" content="Sample React Boilerplate"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#673ab7"><link rel="manifest" href="/manifest.json"><link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico"><link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="apple-mobile-web-app-title" content="PWA Splash"><link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"><link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)"><link rel="apple-touch-icon" sizes="180x180" href="/logo.svg"><meta name="msapplication-TileColor" content="#673ab7"><title>Preact/React Webpack boilerplate</title><style>
-body{margin:0!important}#app{margin-top:100%}.loader-parent{position:absolute;text-align:center;top:40%;width:100%}.pp-logo-loader{-ms-transform:translateZ(0);-webkit-transform:translateZ(0);border-radius:50%;box-shadow:inset 0 0 0 3px;color:#673ab7;font-size:10px;height:72px;margin:0 auto;position:relative;text-indent:-99999em;transform:translateZ(0);width:72px}.pp-logo-loader:after,.pp-logo-loader:before{background:#fff;content:"";height:80px;position:absolute;top:-5px;width:45px}.pp-logo-loader:before{-webkit-animation:uptodown 1.4s ease infinite;-webkit-transform-origin:40px 39px;animation:uptodown 1.4s ease infinite;border-radius:80px 0 0 80px;left:-5px;transform-origin:40px 39px}.pp-logo-loader:after{-webkit-animation:downtoup 1.4s ease 1s infinite;-webkit-transform-origin:0 39px;animation:downtoup 1.4s ease 1s infinite;border-radius:0 80px 80px 0;left:40px;transform-origin:0 39px}@-webkit-keyframes uptodown{0%{-webkit-transform:rotate(-1turn);transform:rotate(-1turn)}to{-webkit-transform:rotate(0);transform:rotate(0)}}@keyframes uptodown{0%{-webkit-transform:rotate(-1turn);transform:rotate(-1turn)}to{-webkit-transform:rotate(0);transform:rotate(0)}}@-webkit-keyframes downtoup{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes downtoup{0%{-webkit-transform:rotate(0);transform:rotate(0)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.pp-logo-container{position:absolute;text-align:center;top:12px;width:100%}.pp-logo{height:48px}
+  body{margin:0!important}#app{margin-top:100%}#snackbar{background-color:#333;border-radius:2px;bottom:30px;color:#fff;font-size:13px;min-width:250px;padding:16px;position:fixed;right:0;text-align:center;visibility:hidden;z-index:1}a#reload{color:#00f;font-size:14px;font-weight:500}
 </style>
-<link as="style" href="/css/main.0.a7941.css" rel="preload"><link as="script" href="/js/runtime.c7e45.js" rel="preload"><link as="script" href="/main.33790.js" rel="preload"><link as="script" href="/npm.otherBundle.1e1ae.js" rel="preload"><link as="script" href="/npm.preactBundle.962bd.js" rel="preload"><link as="script" href="/npm.reactRouterBundle.7b0b8.js" rel="preload"><link href="/css/main.0.a7941.5058829a.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="/css/main.0.a7941.5058829a.css" rel="stylesheet"></noscript></head><body><div class="loader-parent"><div class="pp-logo-loader"></div><div class="pp-logo-container"><img class="pp-logo" src="https://imgstatic.phonepe.com/images/inappweb/120/120/pp-logo.png" alt="Phonepe "></div></div><noscript>You need to enable JavaScript to run this app.</noscript>
-<script>!function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var o=loadCSS.relpreload={};if(o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},!o.support()){o.poly();var t=n.setInterval(o.poly,500);n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script><div id="app"></div><script defer text="text/javascript" >window.addEventListener("load",function(){var o=document.getElementById("output");"serviceWorker"in navigator&&navigator.serviceWorker.register("service-worker.js"),window.addEventListener("beforeinstallprompt",function(e){o.textContent="beforeinstallprompt Event fired",console.log("beforeinstallprompt"),e.userChoice.then(function(e){console.log(e.outcome),"dismissed"==e.outcome?console.log("User cancelled homescreen install"):console.log("User added to homescreen")})})})</script><pre id="output"></pre><script defer text="text/javascript"  src="/js/runtime.c7e45.js"></script><script defer text="text/javascript"  src="/npm.reactRouterBundle.7b0b8.js"></script><script defer text="text/javascript"  src="/npm.otherBundle.1e1ae.js"></script><script defer text="text/javascript"  src="/npm.preactBundle.962bd.js"></script><script defer text="text/javascript"  src="/main.33790.js"></script></body></html>
+<link as="style" href="/css/main.0.2d846.css" rel="preload"><link as="script" href="/js/runtime.c7e45.js" rel="preload"><link as="script" href="/main.33790.js" rel="preload"><link as="script" href="/npm.otherBundle.1e1ae.js" rel="preload"><link as="script" href="/npm.preactBundle.962bd.js" rel="preload"><link as="script" href="/npm.reactRouterBundle.7b0b8.js" rel="preload"><link href="/css/main.0.2d846.5c2f45e5.css" rel="preload" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="/css/main.0.2d846.5c2f45e5.css" rel="stylesheet"></noscript></head><body><div id="snackbar">A new version is available - <a id="reload">REFRESH</a></div><noscript>You need to enable JavaScript to run this app.</noscript>
+<script>!function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var o=loadCSS.relpreload={};if(o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},!o.support()){o.poly();var t=n.setInterval(o.poly,500);n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this);</script><div id="app"></div><script defer text="text/javascript" >window.addEventListener('load', function() {
+        var outputElement = document.getElementById('output');
+        var newWorker;
+        var refreshing;
+        
+        //For showing the a2hs 
+        window.addEventListener('beforeinstallprompt', function(e) {
+          outputElement.textContent = 'beforeinstallprompt Event fired';
+          console.log('beforeinstallprompt');
+          e.userChoice.then(function(choiceResult) {    
+            console.log(choiceResult.outcome);
+            if(choiceResult.outcome == 'dismissed') {
+              console.log('User cancelled homescreen install');
+            }else {
+              console.log('User added to homescreen');
+            }
+          });
+        });
+          
+        function showUpdateBar() {
+          console.log('In showUpdateBar');
+          var snackbar = document.getElementById('snackbar');
+          snackbar.classList.add('show');
+        }
+
+        // The click event on the pop up notification
+        document.getElementById('reload').addEventListener('click', function(){
+          newWorker.postMessage({ action: 'skipWaiting' });
+          window.location.reload();
+        });
+
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+              // A wild service worker has appeared in reg.installing!
+              newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                // Has network.state changed?
+                switch (newWorker.state) {
+                  case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                      // new update available
+                      showUpdateBar();
+                    }
+                    // No update available
+                    break;
+                }
+              });
+            });
+          });
+          navigator.serviceWorker.addEventListener('controllerchange', function () {
+            // console.log('In controller change');
+            // if (refreshing) return;
+            // window.location.reload();
+            // refreshing = true;
+          });
+        }
+      });</script><pre id="output"></pre><script defer text="text/javascript"  src="/js/runtime.c7e45.js"></script><script defer text="text/javascript"  src="/npm.reactRouterBundle.7b0b8.js"></script><script defer text="text/javascript"  src="/npm.otherBundle.1e1ae.js"></script><script defer text="text/javascript"  src="/npm.preactBundle.962bd.js"></script><script defer text="text/javascript"  src="/main.33790.js"></script></body></html>
