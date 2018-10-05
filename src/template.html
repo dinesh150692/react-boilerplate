@@ -86,6 +86,7 @@
         function showAddToHomeScreen() {
           var a2hs = document.getElementById("ad2hs");
           var a2hsBtn = document.getElementById("ad2hsBtn");
+          a2hs.classList.remove('footer-prompt-hide');
           a2hs.classList.add('footer-prompt');
           a2hsBtn.addEventListener("click", addToHomeScreen);
         }
