@@ -75,15 +75,16 @@ module.exports = {
       chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
     }),
     //To add preload attribute to all the chunks
-    new PreloadWebpackPlugin({
-      rel: 'preload',
-      as(entry) {
-        if (/\.css$/.test(entry)) return 'style';
-        if (/\.woff$/.test(entry)) return 'font';
-        if (/\.png$/.test(entry)) return 'image';
-        return 'script';
-      }
-    }),
+    // new PreloadWebpackPlugin({
+    //   fileBlacklist: [/[0-9]{1-2}.[a-zA-Z0-9]{5}\.js$/],
+    //   rel: 'prefetch',
+    //   as(entry) {
+    //     if (/\.css$/.test(entry)) return 'style';
+    //     if (/\.woff$/.test(entry)) return 'font';
+    //     if (/\.png$/.test(entry)) return 'image';
+    //     return 'script';
+    //   }
+    // }),
     //To create a service worker file
     new SWPrecacheWebpackPlugin(
       {

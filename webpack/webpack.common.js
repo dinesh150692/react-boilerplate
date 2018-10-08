@@ -1,3 +1,4 @@
+
 const commonPaths = require('./paths');
 module.exports = {
   entry: commonPaths.entryPath,
@@ -43,11 +44,18 @@ module.exports = {
     dgram: 'empty',
     child_process: 'empty'
   },
-  //enable this comment for moving from react to preact
-  // resolve: {
-  //   alias: {
-  //     "react": "preact-compat",
-  //     'react-dom': "preact-compat"
-  //   }
-  // }
+  
+  resolve: {
+    alias: {
+      //enable this comment for moving from react to preact
+      // "react": "preact-compat",
+      // "react-dom": "preact-compat"
+      "Components": commonPaths.root + '/src/components/',
+      "Pages": commonPaths.root + '/src/pages/',
+      "Actions": commonPaths.root + '/src/redux/actions',
+      "ActionType": commonPaths.root + '/src/redux/actionType',
+      "Sagas": commonPaths.root +  '/src/redux/sagas',
+      "Reducers": commonPaths.root + '/src/redux/reducers'
+    }
+  }
 };
