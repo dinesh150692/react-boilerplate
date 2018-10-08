@@ -1,0 +1,1 @@
+This is React/Preact boilerplate with webpack 4 with various plugins to optimize you build with long term caching and faster first paint.

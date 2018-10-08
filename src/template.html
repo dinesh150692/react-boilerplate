@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="Description" content="Sample React Boilerplate">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="mobile-web-app-capable" content="yes">
+      <meta name="theme-color" content="#673ab7">
+      <link rel="manifest" href="/manifest.json">
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico">
+      <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico">
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="default">
+      <meta name="apple-mobile-web-app-title" content="Preact/React Webpack boilerplate">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-startup-image" href="/logo.svg" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+      <link rel="apple-touch-icon" sizes="180x180" href="/logo.svg">
+      <meta name="msapplication-TileColor" content="#673ab7">
+      <title>Preact/React Webpack boilerplate</title>
+  </head>
+  <body>
+    <div id="snackbar">A new version is available - <a id="reload">REFRESH</a></div>
+    <noscript>
+        You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="app"></div>
+    <script type="text/javascript"> 
+      window.addEventListener('load', function() {
+        var outputElement = document.getElementById('output');
+        var newWorker;
+        var refreshing;
+        var deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', function(event) {
+          console.log('beforeinstallprompt');
+          // Prevent Chrome 67 and earlier from automatically showing the prompt
+          e.preventDefault();
+          // Stash the event so it can be triggered later.
+          deferredPrompt = e;
+          showAddToHomeScreen();
+        });
+        
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/service-worker.js').then(reg => {
+            reg.addEventListener('updatefound', () => {
+              // A wild service worker has appeared in reg.installing!
+              newWorker = reg.installing;
+              newWorker.addEventListener('statechange', () => {
+                // Has network.state changed?
+                switch (newWorker.state) {
+                  case 'installed':
+                    if (navigator.serviceWorker.controller) {
+                      // new update available
+                      showUpdateBar();
+                    }
+                    // No update available
+                    break;
+                }
+              });
+            });
+          });
+          navigator.serviceWorker.addEventListener('controllerchange', function () {
+            // console.log('In controller change');
+            // if (refreshing) return;
+            // window.location.reload();
+            // refreshing = true;
+          });
+        }
+
+        function showUpdateBar() {
+          var snackbar = document.getElementById('snackbar');
+          snackbar.classList.add('show');
+        }
+
+         // The click event on the pop up notification
+        document.getElementById('reload').addEventListener('click', function(){
+          newWorker.postMessage({ action: 'skipWaiting' });
+          window.location.reload();
+        });
+
+        function showAddToHomeScreen() {
+          var a2hs = document.getElementById("ad2hs");
+          var a2hsBtn = document.getElementById("ad2hsBtn");
+          a2hs.classList.remove('footer-prompt-hide');
+          a2hs.classList.add('footer-prompt');
+          a2hsBtn.addEventListener("click", addToHomeScreen);
+        }
+
+        function addToHomeScreen() {  
+            a2hs = document.getElementById("ad2hs");
+            a2hs.classList.add('footer-prompt-hide');
+            a2hs.classList.remove('footer-prompt');
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice
+              .then(function(choiceResult){
+
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+            } else {
+              console.log('User dismissed the A2HS prompt');
+            }
+
+            deferredPrompt = null;
+
+          });
+        }
+      });
+    </script>
+    <div id="ad2hs" class="footer-prompt-hide">
+      <h3>Add to Your Homescreen!</h3>
+      <div class="btn" id="ad2hsBtn">Add</div>
+    </div>
+  </body>
+</html>
