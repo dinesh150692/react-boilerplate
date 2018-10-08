@@ -77,7 +77,12 @@ module.exports = {
     //To add preload attribute to all the chunks
     new PreloadWebpackPlugin({
       rel: 'preload',
-      include: 'initial'
+      as(entry) {
+        if (/\.css$/.test(entry)) return 'style';
+        if (/\.woff$/.test(entry)) return 'font';
+        if (/\.png$/.test(entry)) return 'image';
+        return 'script';
+      }
     }),
     //To create a service worker file
     new SWPrecacheWebpackPlugin(
@@ -141,8 +146,12 @@ module.exports = {
               return `npm.preactBundle`;
             }else if(module.context.match(/[\\/]node_modules[\\/](react-router|react-router-dom|history|invariant)([\\/]|$)/)){
               return `npm.reactRouterBundle`;
+            }else if(module.context.match(/[\\/]node_modules[\\/](react-redux|redux|redux-*)([\\/]|$)/)){
+              return `npm.reduxBundle`;
+            }else if(module.context.match(/[\\/]node_modules[\\/](babel|webpack|core-js)([\\/]|$)/)){
+              return `npm.polyfillBundle`;
             }else{
-              // const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+              //const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
               // npm package names are URL-safe, but some servers don't like @ symbols
               // return `npm.${packageName.replace('@', '')}`;
               return 'npm.otherBundle';
