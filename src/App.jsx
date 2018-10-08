@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { hot } from 'react-hot-loader';
-import './style.scss';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import './style.scss';
 
 const App = () => (
   <Router>
@@ -18,11 +19,15 @@ const App = () => (
         </li>
       </ul>
       <hr />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/about" component={About} />
-        <Route path="/topics" component={Topics} />
-      </Switch>
+      <TransitionGroup>
+        <CSSTransition key={location.key} classNames="fade" timeout={300}>
+          <Switch location={location}>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/topics" component={Topics} />
+          </Switch>
+          </CSSTransition>
+        </TransitionGroup>
     </div>
   </Router>
 );
