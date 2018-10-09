@@ -18,25 +18,25 @@ npm run prod_server
 
 ## Project Structure
 
-###src/components
+### src/components
 This folder will have the basic/reusable components across multiple pages.
 
-###src/pages
+### src/pages
 This folder will have the routes of you app
 
-###src/redux
+### src/redux
 
-###src/redux/actions
+### src/redux/actions
 This folder have the actions which will used in your components/pages
 
-###src/redux/sagas
+### src/redux/sagas
 This folder will have the sagas which is used for linking data from componets/pages to redux state mangament with the reducer mapping 
 
-###src/redux/reducers
+### src/redux/reducers
 This folder will have your app state management
 
-###src/redux/actionType
+### src/redux/actionType
 This is a constant file/s for mapping sagas/reducers
 
-###src/redux/store
+### src/redux/store
 This store is where all your reducers and saga are combined into a single source of state which is made available to your app through the redux functionality
