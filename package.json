@@ -4,7 +4,7 @@
   "description": "Sample PWA",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --port 3000",
+    "start": "NODE_ENV=development webpack-dev-server --watch --config ./webpack/webpack.config.js --port 3000 --inline --hot --colors",
     "local_server": "NODE_ENV=production node server.js",
     "prod_server": "NODE_ENV=production node server.js",
     "build": "sh ./scripts/prod.sh",

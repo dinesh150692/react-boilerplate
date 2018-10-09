@@ -13,23 +13,6 @@ module.exports = {
     chunkFilename: '[name].[contenthash:5].js',
   },
   module: {
-    // rules: [
-    //   {
-    //     test: /\.(css|scss)$/,
-    //     use: [
-    //       'style-loader',
-    //       {
-    //         loader: 'css-loader',
-    //         options: {
-    //           sourceMap: true,
-    //           modules: true,
-    //           camelCase: true
-    //         },
-    //       },
-    //       'sass-loader',
-    //     ],
-    //   },
-    // ],
     rules: [
       {
         test: /\.(css|scss)$/,
