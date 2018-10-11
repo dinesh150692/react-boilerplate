@@ -8,6 +8,7 @@ const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const safePostCssParser = require('postcss-safe-parser');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CompressionPlugin =  require('compression-webpack-plugin');
 
@@ -23,6 +24,57 @@ let cleanOptions = {
 //Public url will be prepended to the chunk files
 var publicUrl = '/';
 
+
+// style files regexes
+const cssRegex = /\.css$/;
+const cssModuleRegex = /\.module\.css$/;
+const sassRegex = /\.(scss|sass)$/;
+const sassModuleRegex = /\.module\.(scss|sass)$/;
+
+// common function to get style loaders
+const getStyleLoaders = (cssOptions, preProcessor) => {
+  const loaders = [
+    {
+      loader: MiniCssExtractPlugin.loader
+    },
+    {
+      loader: require.resolve('css-loader'),
+      options: cssOptions,
+    },
+    {
+      // Options for PostCSS as we reference these options twice
+      // Adds vendor prefixing based on your specified browser support in
+      // package.json
+      loader: require.resolve('postcss-loader'),
+      options: {
+        // Necessary for external CSS imports to work
+        // https://github.com/facebook/create-react-app/issues/2677
+        ident: 'postcss',
+        plugins: () => [
+          require('postcss-flexbugs-fixes'),
+          require('postcss-preset-env')({
+            autoprefixer: {
+              flexbox: 'no-2009',
+            },
+            stage: 3,
+          }),
+        ],
+        sourceMap: false,
+      },
+    },
+  ];
+  if (preProcessor) {
+    loaders.push({
+      loader: require.resolve(preProcessor),
+      options: {
+        sourceMap: false,
+      },
+    });
+  }
+  return loaders;
+};
+
+
 module.exports = {
   mode: 'production',
   entry: commonPaths.entryPath,
@@ -30,16 +82,82 @@ module.exports = {
     filename: `${commonPaths.jsFolder}/[name].[contenthash:5].js`,
     path: commonPaths.outputPath,
     publicPath: publicUrl,
-    chunkFilename: '[name].[contenthash:5].js',
+    chunkFilename: `${commonPaths.jsFolder}/[name].[contenthash:5].js`,
   },
   module: {
+    strictExportPresence: true,
     rules: [
+      // Disable require.ensure as it's not a standard language feature.
+      { parser: { requireEnsure: false } },
+
+    
       {
-        test: /\.(css|scss)$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'sass-loader'
+        // "oneOf" will traverse all following loaders until one will
+        // match the requirements. When no loader matches it will fall
+        // back to the "file" loader at the end of the loader list.
+        oneOf: [
+          // "postcss" loader applies autoprefixer to our CSS.
+          // "css" loader resolves paths in CSS and adds assets as dependencies.
+          // `MiniCSSExtractPlugin` extracts styles into CSS
+          // files. If you use code splitting, async bundles will have their own separate CSS chunk file.
+          // By default we support CSS Modules with the extension .module.css
+          {
+            test: cssRegex,
+            exclude: cssModuleRegex,
+            loader: getStyleLoaders({
+              importLoaders: 1,
+              sourceMap: false,
+            }),
+            // Don't consider CSS imports dead code even if the
+            // containing package claims to have no side effects.
+            // Remove this when webpack adds a warning or an error for this.
+            // See https://github.com/webpack/webpack/issues/6571
+            sideEffects: true,
+          },
+          // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
+          // using the extension .module.css
+          {
+            test: cssModuleRegex,
+            loader: getStyleLoaders({
+              importLoaders: 1,
+              sourceMap: false,
+              modules: true
+            }),
+          },
+          // Opt-in support for SASS. The logic here is somewhat similar
+          // as in the CSS routine, except that "sass-loader" runs first
+          // to compile SASS files into CSS.
+          // By default we support SASS Modules with the
+          // extensions .module.scss or .module.sass
+          {
+            test: sassRegex,
+            exclude: sassModuleRegex,
+            loader: getStyleLoaders(
+              {
+                importLoaders: 2,
+                sourceMap: false,
+              },
+              'sass-loader'
+            ),
+            // Don't consider CSS imports dead code even if the
+            // containing package claims to have no side effects.
+            // Remove this when webpack adds a warning or an error for this.
+            // See https://github.com/webpack/webpack/issues/6571
+            sideEffects: true,
+          },
+          // Adds support for CSS Modules, but using SASS
+          // using the extension .module.scss or .module.sass
+          {
+            test: sassModuleRegex,
+            loader: getStyleLoaders(
+              {
+                importLoaders: 2,
+                sourceMap: false,
+                modules: true
+              },
+              'sass-loader'
+            ),
+          }    
         ],
       },
     ],
@@ -128,7 +246,9 @@ module.exports = {
         sourceMap: true // set to true if you want JS source maps
       }),
       //To optimize css in your code
-      new OptimizeCSSAssetsPlugin({})
+      new OptimizeCSSAssetsPlugin({
+        parser: safePostCssParser
+      })
     ],
     runtimeChunk: 'single',
     splitChunks: {
@@ -155,7 +275,7 @@ module.exports = {
               //const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
               // npm package names are URL-safe, but some servers don't like @ symbols
               // return `npm.${packageName.replace('@', '')}`;
-              return 'npm.otherBundle';
+              return `npm.otherBundle`;
             }
           },
           chunks: "initial"
