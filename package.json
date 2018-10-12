@@ -18,8 +18,9 @@
   "dependencies": {
     "compression": "^1.7.3",
     "express": "^4.16.3",
+    "inferno": "^5.6.1",
+    "inferno-transition-group": "^3.0.2",
     "preact": "^8.3.1",
-    "preact-compat": "^3.18.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-hot-loader": "^4.3.11",
@@ -61,6 +62,10 @@
     "html-webpack-plugin": "3.2.0",
     "husky": "0.14.3",
     "identity-obj-proxy": "3.0.0",
+    "inferno-clone-vnode": "^5.6.1",
+    "inferno-compat": "^5.6.1",
+    "inferno-create-class": "^5.6.1",
+    "inferno-create-element": "^5.6.1",
     "jest": "23.6.0",
     "jest-css-modules-transform": "^2.0.2",
     "jest-enzyme": "6.0.4",
@@ -69,6 +74,11 @@
     "mini-css-extract-plugin": "0.4.2",
     "node-sass": "4.9.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-preset-env": "6.0.6",
+    "postcss-safe-parser": "^4.0.1",
+    "preact-compat": "^3.18.4",
     "preload-webpack-plugin": "3.0.0-beta.2",
     "sass-loader": "7.1.0",
     "style-loader": "0.23.0",
@@ -77,10 +87,6 @@
     "webpack": "4.19.1",
     "webpack-cli": "3.1.0",
     "webpack-dev-server": "^3.1.8",
-    "webpack-merge": "4.1.4",
-    "postcss-flexbugs-fixes": "4.1.0",
-    "postcss-loader": "3.0.0",
-    "postcss-preset-env": "6.0.6",
-    "postcss-safe-parser": "^4.0.1"
+    "webpack-merge": "4.1.4"
   }
 }

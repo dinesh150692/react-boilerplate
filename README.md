@@ -1,5 +1,5 @@
-# React/Preact Boilerplate
-This is React/Preact boilerplate with webpack 4 with various plugins to optimize you build with long term caching and faster first paint.
+# React/Preact/Inferno Boilerplate
+This is React/Preact/Inferno boilerplate with webpack 4 with various plugins to optimize you build with long term caching and faster first paint.
 
 
 ## CLI Commands for running 
