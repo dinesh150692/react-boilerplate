@@ -78,6 +78,18 @@ const getStyleLoaders = (cssOptions, preProcessor) => {
 module.exports = {
   mode: 'production',
   entry: commonPaths.entryPath,
+  resolve: {
+    modules: ['src', 'node_modules'],
+    extensions: ['*', '.js', '.jsx', '.css', '.scss'],
+    alias: {
+      //enable this comment for moving from react to preact
+      // "react": "preact-compat",
+      // "react-dom": "preact-compat",
+      //enable this comment for moving from react to inferno
+      //"react": "inferno-compat",
+      // "react-dom": "inferno-compat",
+    }
+  },
   output: {
     filename: `${commonPaths.jsFolder}/[name].[contenthash:5].js`,
     path: commonPaths.outputPath,
@@ -166,6 +178,9 @@ module.exports = {
     //To display the progress of the webpack build
     new webpack.ProgressPlugin(),
     new webpack.HashedModuleIdsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify('production')
+    }),
     //To clear the destination directory before webpack build
     new CleanWebpackPlugin(['build'], cleanOptions),
     //To create html

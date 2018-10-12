@@ -5,13 +5,7 @@ module.exports = {
     modules: ['src', 'node_modules'],
     extensions: ['*', '.js', '.jsx', '.css', '.scss'],
     alias: {
-      //enable this comment for moving from react to preact
-      // "react": "preact-compat",
-      // "react-dom": "preact-compat",
-      //enable this comment for moving from react to inferno
-      // "react": "inferno-compat",
-      // "react-dom": "inferno-compat",
-      "Components": commonPaths.root + '/src/components/',
+     "Components": commonPaths.root + '/src/components/',
       "Pages": commonPaths.root + '/src/pages/',
       "Actions": commonPaths.root + '/src/redux/actions',
       "ActionType": commonPaths.root + '/src/redux/actionType',
