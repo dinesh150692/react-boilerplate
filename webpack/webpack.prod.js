@@ -1,16 +1,20 @@
 var path = require('path');
+var glob = require('glob');
 const webpack = require('webpack');
 const commonPaths = require('./paths');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
-const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const safePostCssParser = require('postcss-safe-parser');
+const PurgecssPlugin = require('purgecss-webpack-plugin');
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CompressionPlugin =  require('compression-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
+const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
+const ScriptExtHtmlWebpackPlugin= require('script-ext-html-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+const AsyncStylesheetWebpackPlugin = require('async-stylesheet-webpack-plugin');
 
 const BuildProperties = require('../build.properties.json');
 // the clean options to use
