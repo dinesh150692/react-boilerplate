@@ -202,10 +202,20 @@ module.exports = {
         minifyURLs: true,
       },
     }),
+    new ScriptExtHtmlWebpackPlugin({
+      defaultAttribute: 'defer'
+    }),
     //To extract css in the js files into separate/single file
     new MiniCssExtractPlugin({
       filename: `${commonPaths.cssFolder}/[name].[contenthash:5].css`,
       chunkFilename: `${commonPaths.cssFolder}/[name].[id].[contenthash:5].css`,
+    }),
+    new AsyncStylesheetWebpackPlugin({
+      preloadPolyfill: true,
+      noscriptFallback: true
+    }),
+    new PurgecssPlugin({
+      paths: glob.sync(`${PATHS.app}/**/*`,  { nodir: true }),
     }),
     //To add preload attribute to all the chunks
     // new PreloadWebpackPlugin({
@@ -258,7 +268,23 @@ module.exports = {
       new UglifyJsPlugin({
         cache: true,
         parallel: true,
-        sourceMap: true // set to true if you want JS source maps
+        sourceMap: true, // set to true if you want JS source maps
+        uglifyOptions: {
+          sourceMap: true,
+          compress: {
+            drop_console: true,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            dead_code: true,
+            if_return: true,
+            join_vars: true,
+            warnings: false
+          },
+          output: {
+            comments: false
+          }
+        }
       }),
       //To optimize css in your code
       new OptimizeCSSAssetsPlugin({
