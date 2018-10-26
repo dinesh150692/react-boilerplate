@@ -10,16 +10,16 @@ app.use(compression())
 // Serve static assets - Point static path to site
 var oneMonth = 86400000 * 30; // 30 days in milliseconds
 var assetMaxAge = oneMonth;
-
+// To serve index.html file
+var indexPath = '/index.html';
 var basePath = '/build/';
 app.use('/', express.static(path.join(__dirname, basePath), {maxAge: assetMaxAge, redirect: true}));
 
 module.exports = app;
-
-// To serve index.html file
-var indexPath = '/index.html';
+const indexContent = fs.readFileSync(path.join(__dirname, basePath, indexPath));
 app.get('/', (req, res) => {
-	res.sendFile(path.join(__dirname, basePath, indexPath));
+	res.setHeader('Content-Type', 'text/html; charset=utf-8');
+	res.send(indexContent);
 });
 
 // To serve gzip file
