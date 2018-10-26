@@ -31,7 +31,8 @@ app.get('/', (req, res) => {
 
 // Catch all other routes and serve 404 (Page not found) Screen
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, basePath, indexPath));
+	res.setHeader('Content-Type', 'text/html; charset=utf-8');
+	res.send(indexContent);
 });
 
 // Get port from environment and store in Express
